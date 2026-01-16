@@ -1,10 +1,11 @@
 import React from "react";
+import Banner from "../components/Banner";
 
 const Home = () => {
   return (
-    <div className="bg-secondary rounded-2xl ">
+    <div className="bg-secondary rounded-2xl">
       <title>TravelEase-Home</title>
-      <h1>Home page</h1>
+      <Banner></Banner>
     </div>
   );
 };

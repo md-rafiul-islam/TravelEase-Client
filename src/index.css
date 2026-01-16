@@ -5,13 +5,6 @@
 @plugin "daisyui" {
   themes: light --default;
 }
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: #b7a99a;
-  --color-secondary: #dfe0df;
-  --color-accent: #9d6e1e;
-}
 
 .font-quicksand {
   font-family: "Quicksand", sans-serif;
