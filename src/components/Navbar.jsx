@@ -13,6 +13,12 @@ const Navbar = () => {
       <li>
         <NavLink>Register</NavLink>
       </li>
+      <li>
+        <NavLink to="/all-vehicles">All Vehicles</NavLink>
+      </li>
+      <li>
+        <NavLink>Add Vehicle</NavLink>
+      </li>
     </>
   );
 
