@@ -15,7 +15,7 @@ const AllVehicles = () => {
           Choose from a wide range of vehicles available for rent
         </p>
       </section>
-
+      
       <section className="max-w-11/12 mx-auto gap-3 grid sm:grid-cols-2 lg:grid-cols-3">
         {vehiclesData.map((vehicle) => (
           <Card key={vehicle._id} vehicle={vehicle}></Card>

@@ -1,7 +1,20 @@
-import React from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
+import AuthProvider, { Authcontext } from "../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = use(Authcontext);
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        console.log("User log out succesfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const links = (
     <>
       <li>
@@ -10,9 +23,12 @@ const Navbar = () => {
       <li>
         <NavLink>About Us</NavLink>
       </li>
-      <li>
-        <NavLink>Register</NavLink>
-      </li>
+      {!user && (
+        <li>
+          <NavLink to="/register">Register</NavLink>
+        </li>
+      )}
+
       <li>
         <NavLink to="/all-vehicles">All Vehicles</NavLink>
       </li>
@@ -61,7 +77,35 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn rounded-3xl bg-accent text-white">Login</a>
+        {user ? (
+          <div className="flex items-center gap-3 relative group">
+            {/* User Photo */}
+            <img
+              src={user?.photoURL}
+              alt="User"
+              className="w-10 h-10 rounded-full object-cover border cursor-pointer"
+            />
+
+            {/* Hover Display Name */}
+            <div className="absolute right-0 top-12 hidden group-hover:block bg-white shadow-md rounded-lg px-4 py-2 text-sm">
+              <p className="font-medium text-gray-800">
+                {user.displayName || "User"}
+              </p>
+            </div>
+
+            {/* Logout (UI only) */}
+            <button
+              onClick={handleLogout}
+              className="btn btn-sm rounded-3xl bg-red-500 text-white"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <Link to="/login" className="btn rounded-3xl bg-accent text-white">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );

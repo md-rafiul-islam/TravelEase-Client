@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Card";
 
 const LatestVehicles = ({ vehicles }) => {
-  console.log(vehicles);
+  // console.log(vehicles);
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
