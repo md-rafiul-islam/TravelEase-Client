@@ -21,20 +21,29 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink>About Us</NavLink>
+        <NavLink to="/all-vehicles">All Vehicles</NavLink>
       </li>
+
       {!user && (
         <li>
           <NavLink to="/register">Register</NavLink>
         </li>
       )}
-
-      <li>
-        <NavLink to="/all-vehicles">All Vehicles</NavLink>
-      </li>
-      <li>
-        <NavLink to="/add-vehicle">Add Vehicle</NavLink>
-      </li>
+      {user && (
+        <li>
+          <NavLink to="/add-vehicle">Add Vehicle</NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
+          <NavLink to="/">My Vehicle</NavLink>
+        </li>
+      )}
+      {user && (
+        <li>
+          <NavLink to="/">My Bookings</NavLink>
+        </li>
+      )}
     </>
   );
 

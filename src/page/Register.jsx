@@ -1,14 +1,19 @@
 import { use, useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Authcontext } from "../provider/AuthProvider";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, updateUserInfo, handleGoogleLogin } = use(Authcontext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const loginWithGoogle = () => {
     handleGoogleLogin()
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        navigate(location.state || "/");
+      })
       .catch((err) => console.log(err));
   };
 
@@ -26,6 +31,7 @@ const Register = () => {
         updateUserInfo(newData)
           .then((res) => {
             console.log(res);
+            navigate("/login");
           })
           .catch((error) => {
             console.log(error);
