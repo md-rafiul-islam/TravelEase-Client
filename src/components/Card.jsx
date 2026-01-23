@@ -1,11 +1,9 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Card = ({ vehicle }) => {
   return (
-    <div
-      key={vehicle._id}
-      className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
-    >
+    <div className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden">
       {/* Image */}
       <div className="relative">
         <img
@@ -52,9 +50,12 @@ const Card = ({ vehicle }) => {
             <span className="text-sm font-normal text-gray-500">/day</span>
           </p>
 
-          <button className="px-4 py-2 text-sm font-medium rounded-xl bg-primary text-white hover:bg-primary/90 transition">
+          <Link
+            to={`/vehicle-details/${vehicle._id}`}
+            className="px-4 py-2 text-sm font-medium rounded-xl bg-primary text-white hover:bg-primary/90 transition"
+          >
             View Details
-          </button>
+          </Link>
         </div>
       </div>
     </div>
