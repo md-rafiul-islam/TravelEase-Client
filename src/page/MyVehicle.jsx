@@ -16,6 +16,18 @@ const MyVehicle = () => {
       });
   }, [user]);
 
+  const removeVehicle = (id) => {
+    fetch(`http://localhost:3000/vehicles/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        const newData = vehicles.filter((vehicle) => vehicle._id != id);
+        setVehicles(newData);
+      });
+  };
+
   if (vehicles.length === 0) {
     return (
       <div className="text-center mt-20">
@@ -75,13 +87,16 @@ const MyVehicle = () => {
                 </p>
               </div>
 
-              {/* Right: Actions */}
+              {/* action buttons: update and delete */}
               <div className="flex flex-col gap-2 items-end">
                 <button className="px-3 py-1 w-20 text-center text-xs rounded-md border hover:bg-gray-100 transition">
                   Update
                 </button>
 
-                <button className="px-3 py-1 w-20 text-center text-xs rounded-md bg-red-500 text-white hover:bg-red-600 transition">
+                <button
+                  onClick={() => removeVehicle(vehicle._id)}
+                  className="px-3 py-1 w-20 text-center text-xs rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+                >
                   Delete
                 </button>
               </div>
