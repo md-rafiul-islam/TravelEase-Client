@@ -1,10 +1,12 @@
 import { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Authcontext } from "../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { createUser, updateUserInfo, handleGoogleLogin } = use(Authcontext);
+  const { createUser, updateUserInfo, handleGoogleLogin, logOut } =
+    use(Authcontext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -26,11 +28,16 @@ const Register = () => {
         console.log(res);
         const newData = {
           displayName: name.value,
-          photoURL: photo.value || "https://openclipart.org/image/800px/349167",
+          photoURL: photo.value,
         };
         updateUserInfo(newData)
-          .then((res) => {
-            console.log(res);
+          .then(() => {
+            Swal.fire({
+              title: "Good job!",
+              text: "You account has been created!",
+              icon: "success",
+            });
+
             navigate("/login");
           })
           .catch((error) => {
@@ -38,6 +45,8 @@ const Register = () => {
           });
       })
       .catch((err) => console.log(err));
+
+    logOut();
   };
 
   return (
