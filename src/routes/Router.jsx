@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import VehicleDetails from "../page/VehicleDetails";
 import MyVehicle from "../page/MyVehicle";
 import UpdateVehicle from "../page/UpdateVehicle";
+import MyBookings from "../page/MyBookings";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,14 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/vehicles/${params.id}`),
+      },
+      {
+        path: "/my-bookings",
+        element: (
+          <PrivateRoute>
+            <MyBookings></MyBookings>
+          </PrivateRoute>
+        ),
       },
     ],
   },

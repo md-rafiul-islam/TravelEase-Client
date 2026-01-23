@@ -41,7 +41,7 @@ const Navbar = () => {
       )}
       {user && (
         <li>
-          <NavLink to="/">My Bookings</NavLink>
+          <NavLink to="/my-bookings">My Bookings</NavLink>
         </li>
       )}
     </>

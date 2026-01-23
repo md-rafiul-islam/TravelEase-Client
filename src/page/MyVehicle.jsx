@@ -31,6 +31,7 @@ const MyVehicle = () => {
   if (vehicles.length === 0) {
     return (
       <div className="text-center mt-20">
+        <title>TravelEase-My Vehicle</title>
         <h2 className="text-2xl font-semibold">
           You haven’t added any vehicle yet 🚗
         </h2>
@@ -46,10 +47,10 @@ const MyVehicle = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
+      <title>TravelEase-My Vehicle</title>
       <h1 className="text-3xl font-bold mb-8">
         My Vehicles ({vehicles.length})
       </h1>
-
       <div className="max-w-4xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 gap-4">
           {vehicles.map((vehicle) => (

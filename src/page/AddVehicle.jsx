@@ -36,8 +36,8 @@ const AddVehicle = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <title>TravelEase-AddVehicle</title>;
       <h2 className="text-3xl font-bold mb-6">Add New Vehicle</h2>
-
       <form
         onSubmit={handleAddVehicle}
         className="bg-white p-6 rounded-2xl shadow space-y-5"

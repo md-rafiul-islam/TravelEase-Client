@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router";
 
 const VehicleDetails = () => {
-  const vehicle = useLoaderData();
+  const [vehicle, setVehicle] = useState(useLoaderData());
+  // const vehicle = ;
+
+  const handleBookingStatus = () => {
+    const updatedVehicle = {
+      availability: "Booked",
+    };
+
+    fetch(`http://localhost:3000/update-vehicles/${vehicle._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedVehicle),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+
+    const newData = {
+      ...vehicle,
+      availability: "Booked",
+    };
+    setVehicle(newData);
+  };
 
   if (!vehicle) {
     return (
@@ -12,6 +35,7 @@ const VehicleDetails = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
+      <title>TravelEase-Vehicle Details</title>
       <div className="grid md:grid-cols-2 gap-10">
         {/* Vehicle Image */}
         <div>
@@ -66,10 +90,22 @@ const VehicleDetails = () => {
             </p>
           </div>
 
+          {vehicle.availability == "Available" ? (
+            <button
+              onClick={handleBookingStatus}
+              className="mt-6 px-6 py-3 rounded-xl bg-accent text-white font-medium hover:bg-accent/90 transition"
+            >
+              Book Now
+            </button>
+          ) : (
+            <button
+              disabled
+              className="mt-6 px-6 py-3 rounded-xl bg-amber-800 text-white font-medium"
+            >
+              Booked
+            </button>
+          )}
           {/* Action Button */}
-          <button className="mt-6 px-6 py-3 rounded-xl bg-accent text-white font-medium hover:bg-accent/90 transition">
-            Book Now
-          </button>
         </div>
       </div>
     </div>

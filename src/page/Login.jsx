@@ -33,6 +33,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <title>TravelEase-Login</title>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         {/* Header */}
         <div className="text-center mb-8">
