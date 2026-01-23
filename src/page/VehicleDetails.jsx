@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useLoaderData } from "react-router";
+import { Authcontext } from "../provider/AuthProvider";
 
 const VehicleDetails = () => {
   const [vehicle, setVehicle] = useState(useLoaderData());
   // const vehicle = ;
+  const { user } = use(Authcontext);
 
   const handleBookingStatus = () => {
     const updatedVehicle = {
       availability: "Booked",
     };
-
+    // changing availability
     fetch(`http://localhost:3000/update-vehicles/${vehicle._id}`, {
       method: "PATCH",
       headers: {
@@ -25,6 +27,17 @@ const VehicleDetails = () => {
       availability: "Booked",
     };
     setVehicle(newData);
+
+    // adding to booked list
+    fetch(`http://localhost:3000/book-vehicle?email=${user.email}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(vehicle),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   if (!vehicle) {
