@@ -89,9 +89,12 @@ const MyVehicle = () => {
 
               {/* action buttons: update and delete */}
               <div className="flex flex-col gap-2 items-end">
-                <button className="px-3 py-1 w-20 text-center text-xs rounded-md border hover:bg-gray-100 transition">
+                <Link
+                  to={`/update-vehicles/${vehicle._id}`}
+                  className="px-3 py-1 w-20 text-center text-xs rounded-md border hover:bg-gray-100 transition"
+                >
                   Update
-                </button>
+                </Link>
 
                 <button
                   onClick={() => removeVehicle(vehicle._id)}
