@@ -90,7 +90,10 @@ const Navbar = () => {
           <div className="flex items-center gap-3 relative group">
             {/* User Photo */}
             <img
-              src={user?.photoURL}
+              src={
+                user?.photoURL ||
+                "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"
+              }
               alt="User"
               className="w-10 h-10 rounded-full object-cover border cursor-pointer"
             />

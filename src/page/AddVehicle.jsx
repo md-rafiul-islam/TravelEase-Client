@@ -1,8 +1,11 @@
 import { useContext } from "react";
 import { Authcontext } from "../provider/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const AddVehicle = () => {
   const { user } = useContext(Authcontext);
+  const navigate = useNavigate();
 
   const handleAddVehicle = (e) => {
     e.preventDefault();
@@ -31,12 +34,23 @@ const AddVehicle = () => {
         "content-type": "application/json",
       },
       body: JSON.stringify(vehicleData),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged == true) {
+          Swal.fire({
+            title: "Success!",
+            text: "Vehicle have been added!",
+            icon: "success",
+          });
+          navigate("/my-vehicles");
+        }
+      });
   };
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <title>TravelEase-AddVehicle</title>;
+      <title>TravelEase-AddVehicle</title>
       <h2 className="text-3xl font-bold mb-6">Add New Vehicle</h2>
       <form
         onSubmit={handleAddVehicle}

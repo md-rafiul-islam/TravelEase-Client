@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Authcontext } from "../provider/AuthProvider";
 import { Link } from "react-router";
+import Swal from "sweetalert2";
 
 const MyVehicle = () => {
   const { user } = useContext(Authcontext);
@@ -17,15 +18,34 @@ const MyVehicle = () => {
   }, [user]);
 
   const removeVehicle = (id) => {
-    fetch(`http://localhost:3000/vehicles/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        const newData = vehicles.filter((vehicle) => vehicle._id != id);
-        setVehicles(newData);
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/vehicles/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res);
+            const newData = vehicles.filter((vehicle) => vehicle._id != id);
+            setVehicles(newData);
+            if (res.deletedCount == 1) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
   };
 
   if (vehicles.length === 0) {
@@ -62,7 +82,7 @@ const MyVehicle = () => {
               <img
                 src={vehicle.coverImage}
                 alt={vehicle.vehicleName}
-                className="w-24 h-20 rounded-lg object-cover flex-shrink-0"
+                className="w-24 h-20 rounded-lg object-cover shrink-0"
               />
 
               {/* Middle: Content */}

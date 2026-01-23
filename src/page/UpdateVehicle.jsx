@@ -1,8 +1,10 @@
 import React from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const UpdateVehicle = () => {
   const vehicle = useLoaderData();
+  const navigate = useNavigate();
 
   const handleUpdateVehicle = (e) => {
     e.preventDefault();
@@ -20,15 +22,37 @@ const UpdateVehicle = () => {
       coverImage: form.coverImage.value,
     };
 
-    fetch(`http://localhost:3000/update-vehicles/${vehicle._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedVehicle),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Modify it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/update-vehicles/${vehicle._id}`, {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updatedVehicle),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount == 1) {
+              Swal.fire({
+                title: "Updated!",
+                text: "Vehicle info have been updated.",
+                icon: "success",
+              });
+              navigate("/my-vehicles");
+            }
+          });
+      }
+    });
+
     // console.log(updatedVehicle);
   };
 
