@@ -38,55 +38,56 @@ const MyVehicle = () => {
         My Vehicles ({vehicles.length})
       </h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {vehicles.map((vehicle) => (
-          <div
-            key={vehicle._id}
-            className="border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition"
-          >
-            <img
-              src={vehicle.coverImage}
-              alt={vehicle.vehicleName}
-              className="h-48 w-full object-cover"
-            />
+      <div className="max-w-4xl mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 gap-4">
+          {vehicles.map((vehicle) => (
+            <div
+              key={vehicle._id}
+              className="flex items-center gap-4 border rounded-xl p-3 bg-white shadow-sm hover:shadow-md transition"
+            >
+              {/* Left: Image */}
+              <img
+                src={vehicle.coverImage}
+                alt={vehicle.vehicleName}
+                className="w-24 h-20 rounded-lg object-cover flex-shrink-0"
+              />
 
-            <div className="p-4 space-y-2">
-              <h3 className="text-xl font-semibold">{vehicle.vehicleName}</h3>
+              {/* Middle: Content */}
+              <div className="flex-1 space-y-0.5">
+                <h3 className="text-base font-semibold">
+                  {vehicle.vehicleName}
+                </h3>
 
-              <p className="text-sm text-gray-500">{vehicle.location}</p>
+                <p className="text-xs text-gray-500">{vehicle.location}</p>
 
-              <p className="font-medium">৳{vehicle.pricePerDay}/day</p>
+                <p className="text-sm font-medium">
+                  ৳{vehicle.pricePerDay}/day
+                </p>
 
-              <p
-                className={`text-sm font-medium ${
-                  vehicle.availability === "Available"
-                    ? "text-green-600"
-                    : "text-red-500"
-                }`}
-              >
-                {vehicle.availability}
-              </p>
-
-              {/* Actions */}
-              <div className="flex gap-3 mt-4">
-                <Link
-                  to={`/vehicle-details/${vehicle._id}`}
-                  className="flex-1 text-center py-2 rounded-lg bg-primary text-white text-sm"
+                <p
+                  className={`text-xs font-medium ${
+                    vehicle.availability === "Available"
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }`}
                 >
-                  View
-                </Link>
+                  {vehicle.availability}
+                </p>
+              </div>
 
-                <button className="flex-1 py-2 rounded-lg border border-gray-300 text-sm hover:bg-gray-100">
+              {/* Right: Actions */}
+              <div className="flex flex-col gap-2 items-end">
+                <button className="px-3 py-1 w-20 text-center text-xs rounded-md border hover:bg-gray-100 transition">
                   Update
                 </button>
 
-                <button className="flex-1 py-2 rounded-lg bg-red-500 text-white text-sm hover:bg-red-600">
+                <button className="px-3 py-1 w-20 text-center text-xs rounded-md bg-red-500 text-white hover:bg-red-600 transition">
                   Delete
                 </button>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
