@@ -1,21 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Authcontext } from "../provider/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyBookings = () => {
   const { user } = useContext(Authcontext);
   const [bookings, setBookings] = useState([]);
+  const instanceSecure = useAxiosSecure();
 
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/mybookings?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setBookings(data));
-  }, [user?.email, user?.accessToken]);
+    instanceSecure
+      .get(`http://localhost:3000/mybookings?email=${user.email}`)
+      .then((data) => setBookings(data.data));
+  }, [user?.email, instanceSecure, user?.accessToken]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">

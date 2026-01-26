@@ -1,9 +1,11 @@
 import React, { use, useState } from "react";
 import { useLoaderData } from "react-router";
 import { Authcontext } from "../provider/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const VehicleDetails = () => {
   const [vehicle, setVehicle] = useState(useLoaderData());
+  const instanceSecure = useAxiosSecure();
   // const vehicle = ;
   const { user } = use(Authcontext);
 
@@ -12,14 +14,11 @@ const VehicleDetails = () => {
       availability: "Booked",
     };
     // changing availability
-    fetch(`http://localhost:3000/update-vehicles/${vehicle._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedVehicle),
-    })
-      .then((res) => res.json())
+    instanceSecure
+      .patch(
+        `http://localhost:3000/update-vehicles/${vehicle._id}`,
+        updatedVehicle,
+      )
       .then((data) => console.log(data));
 
     const newData = {
@@ -29,14 +28,8 @@ const VehicleDetails = () => {
     setVehicle(newData);
 
     // adding to booked list
-    fetch(`http://localhost:3000/book-vehicle?email=${user.email}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(vehicle),
-    })
-      .then((res) => res.json())
+    instanceSecure
+      .post(`/book-vehicle?email=${user.email}`, vehicle)
       .then((data) => console.log(data));
   };
 

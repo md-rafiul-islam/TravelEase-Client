@@ -1,9 +1,13 @@
-import React from "react";
+import React, { use } from "react";
 import { useLoaderData, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { Authcontext } from "../provider/AuthProvider";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateVehicle = () => {
   const vehicle = useLoaderData();
+  const { user } = use(Authcontext);
+  const instanceSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const handleUpdateVehicle = (e) => {
@@ -32,16 +36,14 @@ const UpdateVehicle = () => {
       confirmButtonText: "Yes, Modify it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/update-vehicles/${vehicle._id}`, {
-          method: "PATCH",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(updatedVehicle),
-        })
-          .then((res) => res.json())
+        instanceSecure
+          .patch(
+            `/update-vehicles/${vehicle._id}?email=${user.email}`,
+            updatedVehicle,
+          )
           .then((data) => {
-            if (data.modifiedCount == 1) {
+            // console.log(data);
+            if (data.data.modifiedCount == 1) {
               Swal.fire({
                 title: "Updated!",
                 text: "Vehicle info have been updated.",
