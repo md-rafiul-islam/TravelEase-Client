@@ -11,7 +11,7 @@ const Home = () => {
       <title>TravelEase-Home</title>
       <Banner></Banner>
 
-      <LatestVehicles vehicles={latestData}></LatestVehicles>
+      <LatestVehicles vehicles={latestData.data}></LatestVehicles>
     </div>
   );
 };

@@ -11,6 +11,7 @@ import MyVehicle from "../page/MyVehicle";
 import UpdateVehicle from "../page/UpdateVehicle";
 import MyBookings from "../page/MyBookings";
 import MyLoader from "../components/MyLoader";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,9 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        loader: () => fetch("http://localhost:3000/latest-vehicles"),
+        loader: () => {
+          return axios.get("http://localhost:3000/latest-vehicles");
+        },
         element: <Home></Home>,
         hydrateFallbackElement: (
           <div className="flex items-center justify-center min-h-[50vh]">
@@ -97,6 +100,14 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <MyBookings></MyBookings>
           </PrivateRoute>
+        ),
+      },
+      {
+        path: "*",
+        element: (
+          <div className="text-center">
+            <h1>Page not found</h1>
+          </div>
         ),
       },
     ],

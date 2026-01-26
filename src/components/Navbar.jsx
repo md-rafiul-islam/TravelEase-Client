@@ -75,11 +75,11 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl font-bold font-quicksand">
+        <Link to="/" className="btn btn-ghost text-xl font-bold font-quicksand">
           <p>
             <span className="text-accent">Travel</span>Ease
           </p>
-        </a>
+        </Link>
       </div>
 
       <div className="navbar-center hidden lg:flex">

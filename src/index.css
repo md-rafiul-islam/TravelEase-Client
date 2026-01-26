@@ -13,3 +13,7 @@
 .font-poppins {
   font-family: "Poppins", sans-serif;
 }
+
+.menu .active {
+  text-decoration: underline;
+}

@@ -1,25 +1,24 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Authcontext } from "../provider/AuthProvider";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyVehicle = () => {
-  const { user } = useContext(Authcontext);
+  const { user } = use(Authcontext);
+  const instanceSecure = useAxiosSecure();
   const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/my-vehicles?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
-      },
-    })
-      .then((res) => res.json())
+    instanceSecure
+      .get(`/my-vehicles?email=${user.email}`)
+
       .then((data) => {
-        setVehicles(data);
+        setVehicles(data.data);
       });
-  }, [user]);
+  }, [instanceSecure, user?.email]);
 
   const removeVehicle = (id) => {
     Swal.fire({
@@ -32,18 +31,13 @@ const MyVehicle = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/vehicles/${id}?email=${user.email}`, {
-          method: "DELETE",
-          headers: {
-            authorization: `Bearer ${user.accessToken}`,
-          },
-        })
-          .then((res) => res.json())
+        instanceSecure
+          .delete(`http://localhost:3000/vehicles/${id}?email=${user.email}`)
           .then((res) => {
             console.log(res);
             const newData = vehicles.filter((vehicle) => vehicle._id != id);
             setVehicles(newData);
-            if (res.deletedCount == 1) {
+            if (res.data.deletedCount == 1) {
               Swal.fire({
                 title: "Deleted!",
                 text: "Your file has been deleted.",
