@@ -8,10 +8,14 @@ const MyBookings = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/mybookings?email=${user.email}`)
+    fetch(`http://localhost:3000/mybookings?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setBookings(data));
-  }, [user?.email]);
+  }, [user?.email, user?.accessToken]);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">

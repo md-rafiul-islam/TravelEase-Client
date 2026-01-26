@@ -26,12 +26,13 @@ const AddVehicle = () => {
       categories: form.fuelType.value,
     };
 
-    console.log(vehicleData);
+    // console.log(vehicleData);
 
-    fetch("http://localhost:3000/add-vehicle", {
+    fetch(`http://localhost:3000/add-vehicle`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
       },
       body: JSON.stringify(vehicleData),
     })
