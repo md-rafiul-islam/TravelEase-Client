@@ -11,7 +11,9 @@ const MyBookings = () => {
     if (!user?.email) return;
 
     instanceSecure
-      .get(`http://localhost:3000/mybookings?email=${user.email}`)
+      .get(
+        `https://travel-ease-server-mu.vercel.app/mybookings?email=${user.email}`,
+      )
       .then((data) => setBookings(data.data));
   }, [user?.email, instanceSecure, user?.accessToken]);
 

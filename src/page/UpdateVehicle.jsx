@@ -5,7 +5,8 @@ import { Authcontext } from "../provider/AuthProvider";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateVehicle = () => {
-  const vehicle = useLoaderData();
+  const data = useLoaderData();
+  const vehicle = data.data;
   const { user } = use(Authcontext);
   const instanceSecure = useAxiosSecure();
   const navigate = useNavigate();

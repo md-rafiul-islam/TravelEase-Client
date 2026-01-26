@@ -31,7 +31,7 @@ const AddVehicle = () => {
 
     instanceSecure
       .post(
-        `http://localhost:3000/add-vehicle?email=${user.email}`,
+        `https://travel-ease-server-mu.vercel.app/add-vehicle?email=${user.email}`,
         vehicleData,
       )
       .then((data) => {

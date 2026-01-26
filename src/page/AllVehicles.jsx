@@ -3,8 +3,8 @@ import { useLoaderData } from "react-router";
 import Card from "../components/Card";
 
 const AllVehicles = () => {
-  const vehiclesData = useLoaderData();
-  console.log(vehiclesData);
+  const data = useLoaderData();
+  // console.log(data);
   return (
     <div>
       <title>TravelEase-All Vehicle</title>
@@ -17,7 +17,7 @@ const AllVehicles = () => {
         </p>
       </section>
       <section className="max-w-11/12 mx-auto gap-3 grid sm:grid-cols-2 lg:grid-cols-3">
-        {vehiclesData.map((vehicle) => (
+        {data.data.map((vehicle) => (
           <Card key={vehicle._id} vehicle={vehicle}></Card>
         ))}
       </section>

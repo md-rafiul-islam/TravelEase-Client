@@ -21,7 +21,9 @@ const router = createBrowserRouter([
       {
         index: true,
         loader: () => {
-          return axios.get("http://localhost:3000/latest-vehicles");
+          return axios.get(
+            "https://travel-ease-server-mu.vercel.app/latest-vehicles",
+          );
         },
         element: <Home></Home>,
         hydrateFallbackElement: (
@@ -32,7 +34,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-vehicles",
-        loader: () => fetch("http://localhost:3000/all-vehicles"),
+        loader: () => {
+          return axios.get(
+            "https://travel-ease-server-mu.vercel.app/all-vehicles",
+          );
+        },
         element: <AllVehicles></AllVehicles>,
         hydrateFallbackElement: (
           <div className="flex items-center justify-center min-h-[50vh]">
@@ -63,8 +69,11 @@ const router = createBrowserRouter([
             <VehicleDetails></VehicleDetails>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/vehicles/${params.id}`),
+        loader: ({ params }) => {
+          return axios.get(
+            `https://travel-ease-server-mu.vercel.app/vehicles/${params.id}`,
+          );
+        },
         hydrateFallbackElement: (
           <div className="flex items-center justify-center min-h-[50vh]">
             <MyLoader></MyLoader>
@@ -87,7 +96,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/vehicles/${params.id}`),
+          axios.get(
+            `https://travel-ease-server-mu.vercel.app/vehicles/${params.id}`,
+          ),
         hydrateFallbackElement: (
           <div className="flex items-center justify-center min-h-[50vh]">
             <MyLoader></MyLoader>

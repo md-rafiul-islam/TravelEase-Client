@@ -32,7 +32,9 @@ const MyVehicle = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         instanceSecure
-          .delete(`http://localhost:3000/vehicles/${id}?email=${user.email}`)
+          .delete(
+            `https://travel-ease-server-mu.vercel.app/vehicles/${id}?email=${user.email}`,
+          )
           .then((res) => {
             console.log(res);
             const newData = vehicles.filter((vehicle) => vehicle._id != id);

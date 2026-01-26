@@ -4,7 +4,8 @@ import { Authcontext } from "../provider/AuthProvider";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const VehicleDetails = () => {
-  const [vehicle, setVehicle] = useState(useLoaderData());
+  const data = useLoaderData();
+  const [vehicle, setVehicle] = useState(data.data);
   const instanceSecure = useAxiosSecure();
   // const vehicle = ;
   const { user } = use(Authcontext);
@@ -16,7 +17,7 @@ const VehicleDetails = () => {
     // changing availability
     instanceSecure
       .patch(
-        `http://localhost:3000/update-vehicles/${vehicle._id}`,
+        `https://travel-ease-server-mu.vercel.app/update-vehicles/${vehicle._id}`,
         updatedVehicle,
       )
       .then((data) => console.log(data));
