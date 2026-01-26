@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { Authcontext } from "../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddVehicle = () => {
   const { user } = useContext(Authcontext);
+  const instanceSecure = useAxiosSecure();
   const navigate = useNavigate();
 
   const handleAddVehicle = (e) => {
@@ -25,20 +27,15 @@ const AddVehicle = () => {
       createdAt: new Date().toISOString(),
       categories: form.fuelType.value,
     };
-
     // console.log(vehicleData);
 
-    fetch(`http://localhost:3000/add-vehicle?email=${user.email}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${user.accessToken}`,
-      },
-      body: JSON.stringify(vehicleData),
-    })
-      .then((res) => res.json())
+    instanceSecure
+      .post(
+        `http://localhost:3000/add-vehicle?email=${user.email}`,
+        vehicleData,
+      )
       .then((data) => {
-        if (data.acknowledged == true) {
+        if (data.data.acknowledged == true) {
           Swal.fire({
             title: "Success!",
             text: "Vehicle have been added!",
