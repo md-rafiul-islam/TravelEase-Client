@@ -32,8 +32,11 @@ const MyVehicle = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/vehicles/${id}`, {
+        fetch(`http://localhost:3000/vehicles/${id}?email=${user.email}`, {
           method: "DELETE",
+          headers: {
+            authorization: `Bearer ${user.accessToken}`,
+          },
         })
           .then((res) => res.json())
           .then((res) => {

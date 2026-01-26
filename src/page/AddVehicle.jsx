@@ -28,7 +28,7 @@ const AddVehicle = () => {
 
     // console.log(vehicleData);
 
-    fetch(`http://localhost:3000/add-vehicle`, {
+    fetch(`http://localhost:3000/add-vehicle?email=${user.email}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
